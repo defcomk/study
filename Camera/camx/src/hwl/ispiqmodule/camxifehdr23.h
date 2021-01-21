@@ -1,0 +1,245 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2018 Qualcomm Technologies, Inc.
+// All Rights Reserved.
+// Confidential and Proprietary - Qualcomm Technologies, Inc.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// @file  camxifehdr23.h
+/// @brief camxifehdr23 class declarations
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef CAMXIFEHDR23_H
+#define CAMXIFEHDR23_H
+
+#include "camxformats.h"
+#include "camxispiqmodule.h"
+#include "camxsensorproperty.h"
+#include "hdr_2_3_0.h"
+#include "iqcommondefs.h"
+#include "titan170_ife.h"
+
+CAMX_NAMESPACE_BEGIN
+
+CAMX_BEGIN_PACKED
+
+/// @brief IFE HDR Module Register Set 1
+struct IFEHDR23RegCmd1
+{
+    IFE_IFE_0_VFE_HDR_CFG_0       configRegister0;        ///< Config Register 0. Offset: 0x57c
+    IFE_IFE_0_VFE_HDR_CFG_1       configRegister1;        ///< Config Register 1. Offset: 0x580
+    IFE_IFE_0_VFE_HDR_CFG_2       configRegister2;        ///< Config Register 2. Offset: 0x584
+    IFE_IFE_0_VFE_HDR_CFG_3       configRegister3;        ///< Config Register 3. Offset: 0x588
+    IFE_IFE_0_VFE_HDR_CFG_4       configRegister4;        ///< Config Register 4. Offset: 0x58c
+    IFE_IFE_0_VFE_HDR_RECON_CFG_0 reconstructionConfig0;  ///< Reconstruction Config Register 0. Offset: 0x590
+    IFE_IFE_0_VFE_HDR_RECON_CFG_1 reconstructionConfig1;  ///< Reconstruction Config Register 1. Offset: 0x594
+    IFE_IFE_0_VFE_HDR_RECON_CFG_2 reconstructionConfig2;  ///< Reconstruction Config Register 2. Offset: 0x598
+    IFE_IFE_0_VFE_HDR_RECON_CFG_3 reconstructionConfig3;  ///< Reconstruction Config Register 3. Offset: 0x59c
+    IFE_IFE_0_VFE_HDR_RECON_CFG_4 reconstructionConfig4;  ///< Reconstruction Config Register 4. Offset: 0x5a0
+    IFE_IFE_0_VFE_HDR_MAC_CFG_0   macConfigRegister0;     ///< Mac COnfig Register 0. Offset: 0x5a4
+    IFE_IFE_0_VFE_HDR_MAC_CFG_1   macConfigRegister1;     ///< Mac COnfig Register 1. Offset: 0x5a8
+    IFE_IFE_0_VFE_HDR_MAC_CFG_2   macConfigRegister2;     ///< Mac COnfig Register 2. Offset: 0x5ac
+    IFE_IFE_0_VFE_HDR_MAC_CFG_3   macConfigRegister3;     ///< Mac COnfig Register 3. Offset: 0x5b0
+    IFE_IFE_0_VFE_HDR_MAC_CFG_4   macConfigRegister4;     ///< Mac COnfig Register 4. Offset: 0x5b4
+    IFE_IFE_0_VFE_HDR_MAC_CFG_5   macConfigRegister5;     ///< Mac COnfig Register 5. Offset: 0x5b8
+    IFE_IFE_0_VFE_HDR_MAC_CFG_6   macConfigRegister6;     ///< Mac COnfig Register 6. Offset: 0x5bc
+    IFE_IFE_0_VFE_HDR_MAC_CFG_7   macConfigRegister7;     ///< Mac COnfig Register 7. Offset: 0x5c0
+} CAMX_PACKED;
+
+/// @brief IFE HDR23 Module register set 2
+struct IFEHDR23RegCmd2
+{
+    IFE_IFE_0_VFE_HDR_CFG_5       configRegister5;        ///< Config Register 5. Offset: 0xc84
+} CAMX_PACKED;
+
+/// @brief IFE HDR23 Module register set 3
+struct IFEHDR23RegCmd3
+{
+    IFE_IFE_0_VFE_HDR_RECON_CFG_5 reconstructionConfig5; ///< Reconstruction Config Register 5. Offset: 0xC8C
+    IFE_IFE_0_VFE_HDR_RECON_CFG_6 reconstructionConfig6; ///< Reconstruction Config Register 6. Offset: 0xC90
+} CAMX_PACKED;
+CAMX_END_PACKED
+
+struct IFEHDR23RegCmd
+{
+    IFEHDR23RegCmd1 m_regCmd1;             ///< Register Set 1 of this Module
+    IFEHDR23RegCmd2 m_regCmd2;             ///< Register Set 2 of this Module
+    IFEHDR23RegCmd3 m_regCmd3;             ///< Register Set 3 of this Module
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// @brief Class for IFE HDR Module
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class IFEHDR23 final : public ISPIQModule
+{
+public:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Create
+    ///
+    /// @brief  Create IFEHDR23 Object
+    ///
+    /// @param  pCreateData Pointer to data for HDR Module Creation
+    ///
+    /// @return CamxResultSuccess if successful
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    static CamxResult Create(
+        IFEModuleCreateData* pCreateData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Initialize
+    ///
+    /// @brief  Initialize parameters
+    ///
+    /// @return CamxResultSuccess if successful
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual CamxResult Initialize();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Execute
+    ///
+    /// @brief  Generate Settings for HDR Object
+    ///
+    /// @param  pInputData Pointer to the Inputdata
+    ///
+    /// @return CamxResultSuccess if successful.
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual CamxResult Execute(
+        ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// GetRegCmd
+    ///
+    /// @brief  Retrieve the buffer of the register value
+    ///
+    /// @return Pointer of the register buffer
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual VOID* GetRegCmd();
+
+protected:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ~IFEHDR23
+    ///
+    /// @brief  Destructor
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual ~IFEHDR23();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// IFEHDR23
+    ///
+    /// @brief  Constructor
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    IFEHDR23();
+
+private:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// AllocateCommonLibraryData
+    ///
+    /// @brief  Allocate memory required for common library
+    ///
+    /// @return CamxResult success if the write operation is success
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    CamxResult AllocateCommonLibraryData();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// DeallocateCommonLibraryData
+    ///
+    /// @brief  Deallocate memory required for common library
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID DeallocateCommonLibraryData();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// CheckDependenceChange
+    ///
+    /// @brief  Check if the Dependence Data has changed
+    ///
+    /// @param  pInputData Pointer to the Input Data
+    ///
+    /// @return TRUE if dependencies met
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    BOOL CheckDependenceChange(
+        ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// RunCalculation
+    ///
+    /// @brief  Perform the Interpolation and Calculation
+    ///
+    /// @param  pInputData Pointer to the Input Data
+    ///
+    /// @return CamxResultSuccess if successful
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    CamxResult RunCalculation(
+        const ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// PrepareStripingParameters
+    ///
+    /// @brief  Prepare striping parameters for striping lib
+    ///
+    /// @param  pInputData Pointer to the Inputdata
+    ///
+    /// @return CamxResultSuccess if successful.
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual CamxResult PrepareStripingParameters(
+        ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// CreateCmdList
+    ///
+    /// @brief  Generate the Command List
+    ///
+    /// @param  pInputData Pointer to the Input Data
+    ///
+    /// @return CamxResultSuccess if successful
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    CamxResult CreateCmdList(
+        const ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ModuleInitialize
+    ///
+    /// @brief  Initialize the Module Data
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID ModuleInitialize();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// SetupInitialConfig
+    ///
+    /// @brief  Configure some of the register value based on the chromatix and image format
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID SetupInitialConfig();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// UpdateIFEInternalData
+    ///
+    /// @brief  Update IFE internal data
+    ///
+    /// @param  pInputData Pointer to the ISP input data
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID UpdateIFEInternalData(
+        ISPInputData* pInputData);
+
+    IFEHDR23(const IFEHDR23&)            = delete; ///< Disallow the copy constructor
+    IFEHDR23& operator=(const IFEHDR23&) = delete; ///< Disallow assignment operator
+
+    HDR23InputData  m_dependenceData;              ///< Dependence Data for this Module
+    BOOL            m_MACEnable;                   ///< Flag to indicated if MAC module is enabled
+    BOOL            m_RECONEnable;                 ///< Flag to indicated if RECON module is enabled
+    IFEHDR23RegCmd  m_regCmd;                      ///< Register Set for HDR module
+    hdr_2_3_0::chromatix_hdr23Type* m_pChromatix;  ///< Pointer to tuning mode data
+};
+CAMX_NAMESPACE_END
+
+#endif // CAMXIFEHDR23_H

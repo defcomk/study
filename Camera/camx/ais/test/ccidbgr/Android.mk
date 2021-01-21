@@ -1,0 +1,18 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := ccidbgr
+LOCAL_MODULE_TAGS := optional
+
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/bin
+
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
+	
+LOCAL_CFLAGS +=-lpthread
+
+LOCAL_SRC_FILES := \
+    la/ccidbgr.c
+
+include $(BUILD_EXECUTABLE)

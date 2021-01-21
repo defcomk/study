@@ -1,0 +1,6 @@
+service evs_driver /vendor/bin/android.hardware.automotive.evs@1.0-ais
+    class hal
+    priority -20
+    user graphics ais_server
+    group automotive_evs camera
+    onrestart restart evs_manager

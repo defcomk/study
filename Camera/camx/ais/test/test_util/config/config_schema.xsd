@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2017-2018 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+ -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="qcarcam_inputs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="input_device"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="input_device">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="properties"/>
+        <xs:element ref="display_setting"/>
+        <xs:element ref="output_setting"/>
+        <xs:element minOccurs="0" ref="inject_setting"/>
+        <xs:element minOccurs="0" ref="exposure_setting"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="properties">
+    <xs:complexType>
+      <xs:attribute name="input_id" use="required" type="xs:integer"/>
+          <xs:attribute name="event_callback" type="xs:integer" default="1"/>
+          <xs:attribute name="frame_timeout" type="xs:integer" default="-1"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="display_setting">
+    <xs:complexType>
+      <xs:attribute name="display_id" use="required" type="xs:integer"/>
+      <xs:attribute name="nbufs" type="xs:integer" default="4"/>
+      <xs:attribute name="src_height" type="xs:decimal" default="1.0"/>
+      <xs:attribute name="src_width" type="xs:decimal" default="1.0"/>
+      <xs:attribute name="src_x" type="xs:decimal" default="0.0"/>
+      <xs:attribute name="src_y" type="xs:decimal" default="0.0"/>
+      <xs:attribute name="window_width" type="xs:decimal" default="1.0"/>
+      <xs:attribute name="window_height" type="xs:decimal" default="1.0"/>
+      <xs:attribute name="window_pos_x" type="xs:decimal" default="0.0"/>
+      <xs:attribute name="window_pos_y" type="xs:decimal" default="0.0"/>
+      <xs:attribute name="zorder" type="xs:integer"/>
+      <xs:attribute name="format" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="output_setting">
+    <xs:complexType>
+      <xs:attribute name="nbufs" use="required" type="xs:integer"/>
+      <xs:attribute name="height" use="required" type="xs:integer"/>
+      <xs:attribute name="width" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="inject_setting">
+    <xs:complexType>
+      <xs:attribute name="pattern" use="required" type="xs:integer"/>
+      <xs:attribute name="bitdepth" use="required" type="xs:integer"/>
+      <xs:attribute name="pack" use="required" type="xs:integer"/>
+      <xs:attribute name="width" use="required" type="xs:integer"/>
+      <xs:attribute name="height" use="required" type="xs:integer"/>
+      <xs:attribute name="stride" use="required" type="xs:integer"/>
+      <xs:attribute name="nbufs" type="xs:integer" default="1"/>
+      <xs:attribute name="filename" type="xs:string" default="bayer_input.raw"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="exposure_setting">
+    <xs:complexType>
+      <xs:attribute name="exp_time" use="required" type="xs:decimal" default="31.147"/>
+      <xs:attribute name="gain" use="required" type="xs:decimal" default="1.5"/>
+      <xs:attribute name="enable_manual" use="required" type="xs:integer" default="0"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

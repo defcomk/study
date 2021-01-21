@@ -1,0 +1,14 @@
+Usage: qcarcam_test 
+
+QCarCam test application. Each camera sets up and posts to display in its own thread.
+
+  Example:
+    o Launch with xml config file (default it expects is qcarcam_config.xml)
+           "qcarcam_test"
+    o to specify config file
+           "qcarcam_test -config=test_config.xml"
+    o to pause/resume or stop/start after "x" frames:
+           "qcarcam_test -pauseResume=100"
+           "qcarcam_test -startStop=100"
+    o to dump frame after "x" frames:
+           "qcarcam_test -dumpFrame=100"

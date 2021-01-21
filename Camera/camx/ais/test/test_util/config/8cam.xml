@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2017 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+ -->
+
+<qcarcam_inputs>
+    <input_device>
+        <properties input_id="0"/>
+        <display_setting display_id="0" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0" window_pos_y="0" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+    <input_device>
+        <properties input_id="1"/>
+        <display_setting display_id="0" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0.5" window_pos_y="0" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+    <input_device>
+        <properties input_id="2"/>
+        <display_setting display_id="0" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0" window_pos_y="0.5" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+    <input_device>
+        <properties input_id="3"/>
+        <display_setting display_id="0" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0.5" window_pos_y="0.5" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+    <input_device>
+        <properties 
+            input_id="4"/>
+        <display_setting display_id="1" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0" window_pos_y="0" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+
+    </input_device>
+    <input_device>
+        <properties input_id="5"/>
+        <display_setting display_id="1" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0.5" window_pos_y="0" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+    <input_device>
+        <properties input_id="8"/>
+        <display_setting display_id="1" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0" window_pos_y="0.5" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+    <input_device>
+        <properties input_id="9"/>
+        <display_setting display_id="1" nbufs="3"
+            window_width="0.5" window_height="0.5" window_pos_x="0.5" window_pos_y="0.5" />
+        <output_setting width="1920" height="1024" nbufs="5" />
+    </input_device>
+</qcarcam_inputs>

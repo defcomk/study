@@ -1,0 +1,237 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2017-2019 Qualcomm Technologies, Inc.
+// All Rights Reserved.
+// Confidential and Proprietary - Qualcomm Technologies, Inc.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// @file  camxbpshdr22.h
+/// @brief bpshdr22 class declarations
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#ifndef CAMXBPSHDR22_H
+#define CAMXBPSHDR22_H
+
+#include "camxdefs.h"
+#include "camxformats.h"
+#include "camxispiqmodule.h"
+#include "camxsensorproperty.h"
+#include "hdr_2_2_0.h"
+#include "iqcommondefs.h"
+#include "titan170_ife.h"
+
+CAMX_NAMESPACE_BEGIN
+
+CAMX_BEGIN_PACKED
+
+/// @brief HDR Reconstruct register Configuration
+struct BPSHDRReconstructConfig
+{
+    BPS_BPS_0_CLC_HDR_RECON_HDR_0_CFG   config0;             ///< HDR reconstruct config 0
+    BPS_BPS_0_CLC_HDR_RECON_HDR_1_CFG   config1;             ///< HDR reconstruct config 1
+    BPS_BPS_0_CLC_HDR_RECON_HDR_2_CFG   config2;             ///< HDR reconstruct config 2
+    BPS_BPS_0_CLC_HDR_RECON_HDR_3_CFG   config3;             ///< HDR reconstruct config 3
+    BPS_BPS_0_CLC_HDR_RECON_IHDR_0_CFG  interlacedConfig0;   ///< interlaced HDR reconstruct config 0
+    BPS_BPS_0_CLC_HDR_RECON_IHDR_1_CFG  interlacedConfig1;   ///< interlaced HDR reconstruct config 1
+    BPS_BPS_0_CLC_HDR_RECON_IHDR_2_CFG  interlacedConfig2;   ///< interlaced HDR reconstruct config 2
+    BPS_BPS_0_CLC_HDR_RECON_ZHDR_0_CFG  zigzagConfig0;       ///< zigzag HDR reconstruct config 0
+    BPS_BPS_0_CLC_HDR_RECON_ZHDR_1_CFG  zigzagConfig1;       ///< zigzag HDR reconstruct config 1
+} CAMX_PACKED;
+
+/// @brief HDR MAC register Configuration
+struct BPSHDRMACConfig
+{
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_0_CFG config0;  ///< HDR reconstruct config 0
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_1_CFG config1;  ///< HDR reconstruct config 1
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_2_CFG config2;  ///< HDR reconstruct config 2
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_3_CFG config3;  ///< HDR reconstruct config 3
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_4_CFG config4;  ///< interlaced HDR reconstruct config 0
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_5_CFG config5;  ///< interlaced HDR reconstruct config 1
+    BPS_BPS_0_CLC_HDR_MAC_HDR_MAC_6_CFG config6;  ///< interlaced HDR reconstruct config 2
+} CAMX_PACKED;
+
+CAMX_END_PACKED
+
+/// @brief HDR Reconstruct and MAC register Configuration
+struct BPSHDRRegCmd
+{
+    BPSHDRReconstructConfig reconstructConfig;  ///< HDR reconstruct config
+    BPSHDRMACConfig         MACConfig;          ///< HDR MAC config
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// @brief BPS HDR 20 Class Implementation
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class BPSHDR22 final : public ISPIQModule
+{
+public:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Create
+    ///
+    /// @brief  Create BPSHDR22 Object
+    ///
+    /// @param  pCreateData Pointer to the BPSHDR22 Creation
+    ///
+    /// @return CamxResultSuccess if successful.
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    static CamxResult Create(
+        BPSModuleCreateData* pCreateData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Initialize
+    ///
+    /// @brief  Initialize parameters
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual CamxResult Initialize();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Execute
+    ///
+    /// @brief  Execute process capture request to configure module
+    ///
+    /// @param  pInputData Pointer to the ISP input data
+    ///
+    /// @return CamxResultSuccess if successful.
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual CamxResult Execute(
+        ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ~BPSHDR22
+    ///
+    /// @brief  Destructor
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual ~BPSHDR22();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// GetRegCmd
+    ///
+    /// @brief  Retrieve the buffer of the register value
+    ///
+    /// @return Pointer of the register buffer
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    virtual VOID* GetRegCmd();
+
+protected:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// BPSHDR22
+    ///
+    /// @brief  Constructor
+    ///
+    /// @param  pNodeIdentifier     String identifier for the Node that creating this IQ Module object
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    explicit BPSHDR22(
+       const CHAR* pNodeIdentifier);
+
+private:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// AllocateCommonLibraryData
+    ///
+    /// @brief  Allocate memory required for common library
+    ///
+    /// @return CamxResult success if the write operation is success
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    CamxResult AllocateCommonLibraryData();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// DeallocateCommonLibraryData
+    ///
+    /// @brief  Deallocate memory required for common library
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID DeallocateCommonLibraryData();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// CheckDependenceChange
+    ///
+    /// @brief  Check to see if the Dependence Trigger Data Changed
+    ///
+    /// @param  pInputData Pointer to the ISP input data
+    ///
+    /// @return TRUE if dependencies met
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    BOOL CheckDependenceChange(
+        ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// RunCalculation
+    ///
+    /// @brief  Calculate the Register Value
+    ///
+    /// @param  pInputData Pointer to the ISP input data
+    ///
+    /// @return CamxResult Indicates if interpolation and configure registers was success or failure
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    CamxResult RunCalculation(
+        const ISPInputData* pInputData);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// ConfigureRegisters
+    ///
+    /// @brief  Configure HDR registers
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID ConfigureRegisters();
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// DumpRegConfig
+    ///
+    /// @brief  Print register configuration of HDR module for debug
+    ///
+    /// @param  pMacParametersConfig    Config Pointer to the MAC config
+    /// @param  pReconParametersConfig  Config Pointer to the RECON config
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID DumpRegConfig(
+        const HDRMacParameters*   pMacParametersConfig,
+        const HDRReconParameters* pReconParametersConfig
+        ) const;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// UpdateBPSInternalData
+    ///
+    /// @brief  Update BPS internal data
+    ///
+    /// @param  pInputData Pointer to the ISP input data
+    ///
+    /// @return None
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    VOID UpdateBPSInternalData(
+        ISPInputData* pInputData
+        ) const;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// CreateCmdList
+    ///
+    /// @brief  Create the Command List
+    ///
+    /// @param  pInputData Pointer to the ISP input data
+    ///
+    /// @return CamxResult
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    CamxResult CreateCmdList(
+        const ISPInputData* pInputData);
+
+    BPSHDR22(const BPSHDR22&)            = delete;         ///< Disallow the copy constructor
+    BPSHDR22& operator=(const BPSHDR22&) = delete;         ///< Disallow assignment operator
+
+    const CHAR*                     m_pNodeIdentifier;     ///< String identifier of this Node
+    HDR22InputData                  m_dependenceData;      ///< Dependence Data for this Module
+    BPSHDRRegCmd                    m_regCmd;              ///< Register list for HDR module
+    BOOL                            m_MACEnable;           ///< Flag to indicated if MAC module is enabled
+    BOOL                            m_RECONEnable;         ///< Flag to indicated if RECON module is enabled
+    HDRReconParameters              m_hdrReconParameters;  ///< FW Recon data
+    HDRMacParameters                m_hdrMacParameters;    ///< FW Mac data
+    hdr_2_2_0::chromatix_hdr22Type* m_pChromatix;          ///< Pointer to tuning mode data
+};
+CAMX_NAMESPACE_END
+#endif // CAMXBPSHDR22_H

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2017 Qualcomm Technologies, Inc.
+  All Rights Reserved.
+  Confidential and Proprietary - Qualcomm Technologies, Inc.
+ -->
+
+<qcarcam_inputs>
+    <input_device>
+        <properties input_id="0" event_callback="1"/>
+        <display_setting display_id="0" nbufs="3"/>
+        <output_setting width="1280" height="720" nbufs="5" />
+        <exposure_setting exp_time ="30.0" gain="1.0" enable_manual="1" />
+    </input_device>
+</qcarcam_inputs>
